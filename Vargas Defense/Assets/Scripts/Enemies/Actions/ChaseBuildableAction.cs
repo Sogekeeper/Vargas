@@ -10,6 +10,7 @@ public class ChaseBuildableAction : Action
     }
 
     private void ChaseTower(StateController controller){
+        if(controller.enemyStats.target == null) return;
         controller.agent.SetDestination(controller.enemyStats.target.transform.position);
     }
 }

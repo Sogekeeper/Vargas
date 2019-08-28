@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9c814cfff20d145958a793c3bec076, type: 3}
+  m_Name: ChasingBuild State
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 97c48e5a06e2c2348a60ee995a4f8c28, type: 2}
+  - {fileID: 11400000, guid: 0fd5ae35fa8f0634b81ad0f8d1dda545, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: e61adaff5fe0ad24d8087e489b33f0bc, type: 2}
+    trueState: {fileID: 11400000, guid: fc3f5f7c3c5126f40b9438f97c4f3861, type: 2}
+    falseState: {fileID: 11400000, guid: 00718ddeaebccef45a27c070b42f8ca9, type: 2}
+  - decision: {fileID: 11400000, guid: f8d773fe42e90c64fac424f68cf46806, type: 2}
+    trueState: {fileID: 11400000, guid: 3c3640a08b29aaf4eb2f11c60db6bd77, type: 2}
+    falseState: {fileID: 11400000, guid: 00718ddeaebccef45a27c070b42f8ca9, type: 2}

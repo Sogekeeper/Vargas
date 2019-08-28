@@ -110,8 +110,8 @@ public class ShootingTurret : MonoBehaviour, IBuildBehaviour
                 }
             }
         }
-        if(potentialTarget) print("Found: "+potentialTarget.name);
-        else print("Nothing Found");
+        //if(potentialTarget) print("Found: "+potentialTarget.name);
+        //else print("Nothing Found");
         return potentialTarget;
 
     }

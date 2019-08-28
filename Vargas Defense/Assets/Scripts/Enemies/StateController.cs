@@ -7,9 +7,11 @@ public class StateController : MonoBehaviour
 {
     public State currentState;
     public Enemy enemyStats;
-    public NavMeshAgent agent;
     public Animator anim;
 
+    public State remainState;
+
+    public NavMeshAgent agent{get; private set;}
     public Transform trans{get; private set;}
 
     private void Awake() {
@@ -28,5 +30,11 @@ public class StateController : MonoBehaviour
         transform.rotation = agent.transform.rotation;
 
         anim.SetFloat("speed", agent.desiredVelocity.magnitude);
+    }
+
+    public void TransitionState(State nextState){
+        if(nextState != remainState){
+            currentState = nextState;
+        }
     }
 }

@@ -14,7 +14,7 @@ public class Buildable : MonoBehaviour
     public int cost = 10;
     public float timeToBuild = 20f;    
     public float multiplierDuration = 1.5f;
-    public bool isTower = true;
+    public bool isTower = true; //pro inimigo bate
     public GameObject placementProjection;
     public GameObject initialBuild;
 
@@ -23,7 +23,7 @@ public class Buildable : MonoBehaviour
     [Header("Upgrades")]
     public Upgrade[] upgrades;
 
-    public int currentLife {get; private set;}
+    public int currentLife ;
     public int currentUpgradeProgress {get; private set;}
     public int currentUpgradeIndex {get; private set;}
     
@@ -86,7 +86,8 @@ public class Buildable : MonoBehaviour
 
     public void Die(){
         FPSBuilderManager.Instance.builds.Remove(this);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void InsertResource(ref int amount, int maxAmount){        
