@@ -1,32 +1,4 @@
-﻿/*
- * - Edited by PrzemyslawNowaczyk (11.10.17)
- *   -----------------------------
- *   Deleting unused variables
- *   Changing obsolete methods
- *   Changing used input methods for consistency
- *   -----------------------------
- *
- * - Edited by NovaSurfer (31.01.17).
- *   -----------------------------
- *   Rewriting from JS to C#
- *   Deleting "Spawn" and "Explode" methods, deleting unused varibles
- *   -----------------------------
- * Just some side notes here.
- *
- * - Should keep in mind that idTech's cartisian plane is different to Unity's:
- *    Z axis in idTech is "up/down" but in Unity Z is the local equivalent to
- *    "forward/backward" and Y in Unity is considered "up/down".
- *
- * - Code's mostly ported on a 1 to 1 basis, so some naming convensions are a
- *   bit fucked up right now.
- *
- * - UPS is measured in Unity units, the idTech units DO NOT scale right now.
- *
- * - Default values are accurate and emulates Quake 3's feel with CPM(A) physics.
- *
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +7,7 @@ struct Cmd
 {
     public float forwardMove;
     public float rightMove;
-    public float upMove;
+    //public float upMove;
 }
 
 public class CPMPlayer : MonoBehaviour
@@ -44,7 +16,7 @@ public class CPMPlayer : MonoBehaviour
     public float playerViewYOffset = 0.6f; // The height at which the camera is bound to
     public float xMouseSensitivity = 30.0f;
     public float yMouseSensitivity = 30.0f;
-//
+
     /*Frame occuring factors*/
     public float gravity = 20.0f;
 
@@ -91,6 +63,8 @@ public class CPMPlayer : MonoBehaviour
     // Player commands, stores wish commands that the player asks for (Forward, back, jump, etc)
     private Cmd _cmd;
 
+    private bool usingCamera = true;
+
     private void Start()
     {
         // Hide the cursor
@@ -113,6 +87,16 @@ public class CPMPlayer : MonoBehaviour
         _controller = GetComponent<CharacterController>();
     }
 
+    public void ToggleCamera(bool useCamera){
+        usingCamera = useCamera;
+        if(useCamera){
+            Cursor.lockState = CursorLockMode.Locked;
+        }else{
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+    
     private void Update()
     {
         // Do FPS calculation
@@ -125,7 +109,7 @@ public class CPMPlayer : MonoBehaviour
             dt -= 1.0f / fpsDisplayRate;
                  }
         /* Ensure that the cursor is locked into the screen */
-        if (Cursor.lockState != CursorLockMode.Locked) {
+        if (Cursor.lockState != CursorLockMode.Locked && usingCamera) {
             if (Input.GetButtonDown("Fire1"))
                 Cursor.lockState = CursorLockMode.Locked;
         }
@@ -140,8 +124,10 @@ public class CPMPlayer : MonoBehaviour
         else if(rotX > 90)
             rotX = 90;
 
-        this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
-        playerView.rotation     = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
+        if(usingCamera){
+            this.transform.rotation = Quaternion.Euler(0, rotY, 0); // Rotates the collider
+            playerView.rotation     = Quaternion.Euler(rotX, rotY, 0); // Rotates the camera
+        }
 
         
 

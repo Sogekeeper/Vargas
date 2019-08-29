@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSBuilderManager : MonoBehaviour {
 
@@ -24,6 +25,10 @@ public class FPSBuilderManager : MonoBehaviour {
 	public static FPSBuilderManager Instance;
 	public List<Buildable> builds;
 
+	[Header("Interface")]
+	public GameObject placementMenu;	
+	public CPMPlayer playerMov;
+
     void Awake () {
 		if(Instance == null){
 			Instance = this;
@@ -33,7 +38,11 @@ public class FPSBuilderManager : MonoBehaviour {
 		}
 		isBuilding = false;
 		builds  = new List<Buildable>();
-		playerView = Camera.main;
+		playerView = Camera.main;		
+	}
+	
+	private void Start() {
+		placementMenu.SetActive(false);
 	}
 	
 	
@@ -92,19 +101,34 @@ public class FPSBuilderManager : MonoBehaviour {
     private void HandleObjectKey()
     {
         if(Input.GetKeyDown(newObjectHotkey)){
-			if(currentPlaceablePrefab == null){
-				currentPlaceablePrefab = Instantiate(placeablePrefab);
-				currentPlaceablePrefab.SetActive(true);
-				Buildable b = currentPlaceablePrefab.GetComponent<Buildable>();
-				if(b) b.StartProjecting();	
-				isBuilding =true;
-			}else{
+			if(currentPlaceablePrefab == null && !placementMenu.activeInHierarchy){
+				playerMov.ToggleCamera(false);
+				placementMenu.SetActive(true);
+			}
+			else if(placementMenu.activeInHierarchy){
+				playerMov.ToggleCamera(true);
+				placementMenu.SetActive(false);
+			}
+			else{
 				degreeAddition =0;
 				Destroy(currentPlaceablePrefab);//substutir depois quando pooler for implementado
 				isBuilding = false;
 			}
 		}
     }
+
+	public void HandleBuildSelection(int targetBuildIndex){		
+		Buildable b = BuildingsDatabase.Instance.GetBuildable(targetBuildIndex);
+		if(b.cost <= currentResources){
+			//Go Wrong
+			b.gameObject.SetActive(false);
+			return;
+		}
+		currentPlaceablePrefab = b.gameObject;
+		currentPlaceablePrefab.SetActive(true);
+		if(b) b.StartProjecting();	
+		isBuilding =true;
+	}
 
 	public void InsertResources(){
 		Ray ray = playerView.ScreenPointToRay(Input.mousePosition);

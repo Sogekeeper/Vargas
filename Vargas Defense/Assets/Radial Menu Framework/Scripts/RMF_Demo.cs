@@ -24,11 +24,11 @@ public class RMF_Demo : MonoBehaviour {
 
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            Application.LoadLevel(0);
+            //Application.LoadLevel(0);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            Application.LoadLevel(1);
+            //Application.LoadLevel(1);
         }
 
 
