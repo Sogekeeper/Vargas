@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 10
-  damage: 1
+  damage: 3
   fireRate: 1
   dangerZone: 1
   turningSpeed: 0.1
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 5267881152519652751}
   - component: {fileID: 8502043979880231471}
   m_Layer: 10
-  m_Name: Shooting Turret 2
+  m_Name: REDShooting Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,8 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalLife: 5
-  cost: 10
-  timeToBuild: 5
+  cost: 20
+  description: "Sentinela PUTO\n\nMesmo comportamento do b\xE1sico s\xF3 que PUTO."
+  timeToBuild: 8
   multiplierDuration: 1.5
   isTower: 1
   placementProjection: {fileID: 5267881150820734193}
@@ -282,6 +283,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1808467620, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 333f3a40f2b0f8b4197e43c308af8278, type: 2}
+    - target: {fileID: 952783354, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 333f3a40f2b0f8b4197e43c308af8278, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
 --- !u!1 &5267881152305627188 stripped

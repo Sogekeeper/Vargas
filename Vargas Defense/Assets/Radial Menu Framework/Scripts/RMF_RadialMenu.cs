@@ -30,6 +30,7 @@ public class RMF_RadialMenu : MonoBehaviour {
 
     [Tooltip("This is the text object that will display the labels of the radial elements when they are being hovered over. If you don't want a label, leave this blank.")]
     public TextMeshProUGUI textLabel;
+    public TextMeshProUGUI extraTextLabel;
 
     [Tooltip("This is the list of radial menu elements. This is order-dependent. The first element in the list will be the first element created, and so on.")]
     public List<RMF_RadialMenuElement> elements = new List<RMF_RadialMenuElement>();

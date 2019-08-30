@@ -12,6 +12,8 @@ public class Buildable : MonoBehaviour
 
     public int totalLife = 20;
     public int cost = 10;
+    [TextArea]
+    public string description = "Descrição do que a torre é ou faz.";
     public float timeToBuild = 20f;    
     public float multiplierDuration = 1.5f;
     public bool isTower = true; //pro inimigo bate
@@ -23,12 +25,15 @@ public class Buildable : MonoBehaviour
     [Header("Upgrades")]
     public Upgrade[] upgrades;
 
+    [Header("Optional Visuals")]
+    public ParticleSystem damageParticles;
+
     public int currentLife ;
-    public int currentUpgradeProgress {get; private set;}
-    public int currentUpgradeIndex {get; private set;}
+    public int currentUpgradeProgress {get; protected set;}
+    public int currentUpgradeIndex {get; protected set;}
     
-    public float progress {get; private set;}
-    public bool isBuilding{get; private set;}
+    public float progress {get; protected set;}
+    public bool isBuilding{get; protected set;}
 
     private float multiplierTimer = 0;
 
@@ -79,6 +84,10 @@ public class Buildable : MonoBehaviour
 
     public void TakeDamage(int dmg){
         currentLife -= dmg;
+        if(damageParticles){
+            damageParticles.Stop();
+            damageParticles.Play();
+        }
         if(currentLife <= 0){
             Die();
         }

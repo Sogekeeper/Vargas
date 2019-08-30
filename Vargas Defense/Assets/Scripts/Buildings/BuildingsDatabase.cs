@@ -11,9 +11,12 @@ public class BuildingsDatabase : MonoBehaviour
     }
 
     [Header("Buildings")]
-    public Pool[] buildables;
-    
+    public Pool[] buildables;    
     private Queue<Buildable>[] buildPools;
+
+    [Header("Interface")]
+    public RMF_RadialMenu radialMenu;
+    public FPSBuilderManager builder;
 
     public static BuildingsDatabase Instance;     
 
@@ -26,7 +29,8 @@ public class BuildingsDatabase : MonoBehaviour
         }
         if(buildables == null || buildables.Length <= 0) return;
 
-        buildPools = new Queue<Buildable>[buildPools.Length];
+        /////GENERATE POOLS
+        buildPools = new Queue<Buildable>[buildables.Length];
         for (int i = 0; i < buildPools.Length; i++){
             Queue<Buildable> buildQueue = new Queue<Buildable>();
             for (int j = 0; j < buildables[i].amount; j++)
@@ -36,6 +40,19 @@ public class BuildingsDatabase : MonoBehaviour
                 b.gameObject.SetActive(false);
             }
             buildPools[i] = buildQueue;
+        } 
+    }
+
+    private void Start() {
+        /////PREPARE RADIAL MENU
+        for (int i = 0; i < buildables.Length; i++)
+        {            
+            int j = i; //frescura pra C#
+            radialMenu.elements[i].cost.SetText(buildables[i].buildPrefab.cost.ToString());
+            radialMenu.elements[i].label = buildables[i].buildPrefab.description;
+            //radialMenu.elements[i].setParentMenuLable(buildables[i].buildPrefab.description,buildables[i].buildPrefab.cost.ToString());
+            //radialMenu.elements[i].button.onClick.RemoveAllListeners();
+            //radialMenu.elements[i].button.onClick.AddListener(delegate{builder.HandleBuildSelection(j);});
         }
     }
 

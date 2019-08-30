@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
+using TMPro;
+
 [AddComponentMenu("Radial Menu Framework/RMF Element")]
 public class RMF_RadialMenuElement : MonoBehaviour {
 
@@ -15,7 +17,9 @@ public class RMF_RadialMenuElement : MonoBehaviour {
     public Button button;
 
     [Tooltip("This is the text label that will appear in the center of the radial menu when this option is moused over. Best to keep it short.")]
-    public string label;
+    public string label;    
+    public TextMeshProUGUI cost;
+    
 
     [HideInInspector]
     public float angleMin, angleMax;
@@ -108,12 +112,13 @@ public class RMF_RadialMenuElement : MonoBehaviour {
 
     }
 
+    //[HideInInspector] public bool blockStringEdit = false;
     //Sets the label of the parent menu. Is set to public so you can call this elsewhere if you need to show a special label for something.
-    public void setParentMenuLable(string l) {
-
+    public void setParentMenuLable(string l, string costNumber = "") {
+        //if(blockStringEdit) return;
         if (parentRM.textLabel != null)
-            parentRM.textLabel.text = l;
-
+            parentRM.textLabel.SetText(l);
+        if(parentRM.extraTextLabel != null && !costNumber.Equals("")) parentRM.extraTextLabel.SetText(costNumber);
 
     }
 

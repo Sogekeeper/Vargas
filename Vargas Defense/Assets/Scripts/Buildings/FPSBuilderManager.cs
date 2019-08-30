@@ -119,8 +119,9 @@ public class FPSBuilderManager : MonoBehaviour {
 
 	public void HandleBuildSelection(int targetBuildIndex){		
 		Buildable b = BuildingsDatabase.Instance.GetBuildable(targetBuildIndex);
-		if(b.cost <= currentResources){
+		if(b.cost > currentResources){
 			//Go Wrong
+			
 			b.gameObject.SetActive(false);
 			return;
 		}
@@ -128,6 +129,8 @@ public class FPSBuilderManager : MonoBehaviour {
 		currentPlaceablePrefab.SetActive(true);
 		if(b) b.StartProjecting();	
 		isBuilding =true;
+		placementMenu.SetActive(false);
+		playerMov.ToggleCamera(true);
 	}
 
 	public void InsertResources(){
