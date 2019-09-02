@@ -90,11 +90,11 @@ public class CPMPlayer : MonoBehaviour
     public void ToggleCamera(bool useCamera){        
         usingCamera = useCamera;
         if(useCamera){
-            Debug.Log("camera enabled");
+            //Debug.Log("camera enabled");
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }else{
-            Debug.Log("cam disabled");
+            //Debug.Log("cam disabled");
             Cursor.lockState = CursorLockMode.None;
         }
     }

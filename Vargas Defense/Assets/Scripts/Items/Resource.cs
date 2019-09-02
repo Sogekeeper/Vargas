@@ -17,8 +17,9 @@ public class Resource : MonoBehaviour
         value = targetValue;
     }
 
-    public void KickOff(float forceAmount){
+    public void KickOff(float forceAmount, Vector3 targetPosition){
         rb.AddForce(Random.insideUnitSphere * forceAmount, ForceMode.Impulse);
+        transform.position = targetPosition;
     }
 
     private void OnTriggerEnter(Collider other) {

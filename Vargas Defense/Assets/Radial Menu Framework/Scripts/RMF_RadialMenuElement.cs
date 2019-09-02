@@ -18,7 +18,7 @@ public class RMF_RadialMenuElement : MonoBehaviour {
 
     [Tooltip("This is the text label that will appear in the center of the radial menu when this option is moused over. Best to keep it short.")]
     public string label;    
-    public TextMeshProUGUI cost;
+    public TextMeshProUGUI extraText;
     
 
     [HideInInspector]
@@ -108,17 +108,17 @@ public class RMF_RadialMenuElement : MonoBehaviour {
 
         ExecuteEvents.Execute(button.gameObject, p, ExecuteEvents.selectHandler);
         active = true;
-        setParentMenuLable(label);
+        setParentMenuLable(label, extraText.text);
 
     }
 
     //[HideInInspector] public bool blockStringEdit = false;
     //Sets the label of the parent menu. Is set to public so you can call this elsewhere if you need to show a special label for something.
-    public void setParentMenuLable(string l, string costNumber = "") {
+    public void setParentMenuLable(string l, string extra = "") {
         //if(blockStringEdit) return;
         if (parentRM.textLabel != null)
             parentRM.textLabel.SetText(l);
-        if(parentRM.extraTextLabel != null && !costNumber.Equals("")) parentRM.extraTextLabel.SetText(costNumber);
+        if(parentRM.extraTextLabel != null && !extra.Equals("")) parentRM.extraTextLabel.SetText(extra);
 
     }
 

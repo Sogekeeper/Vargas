@@ -23,7 +23,9 @@ public class Bullet : MonoBehaviour
         trans = GetComponent<Transform>();
         dmg = targetDamage;    
         col.gameObject.SetActive(true);
-        if(impactPart)impactPart.gameObject.SetActive(false);
+        if(impactPart){impactPart.gameObject.SetActive(false);
+            impactPart.Stop();
+        }
 
         rb.velocity = trans.forward * bSpeed;
     }

@@ -15,7 +15,16 @@ public class DropDatabase : MonoBehaviour
     private Queue<Resource> poolValue5;
     private Queue<Resource> poolValue10;
 
-    public static BuildingsDatabase Instance; 
+    public static DropDatabase Instance; 
+
+    private void Awake() {
+        if(Instance == null){
+            Instance = this;
+        }else{
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start() {
         poolValue1 = new Queue<Resource>();
@@ -32,7 +41,18 @@ public class DropDatabase : MonoBehaviour
         int remainingAmount = targetAmount;
         while(remainingAmount >= 10){
             Resource r = GetFromTargetPool(poolValue10);
-            
+            r.KickOff(3,location);
+            remainingAmount -= 10;
+        }
+        while(remainingAmount >= 5){
+            Resource r = GetFromTargetPool(poolValue5);
+            r.KickOff(3,location);
+            remainingAmount -= 5;
+        }
+        while(remainingAmount >= 1){
+            Resource r = GetFromTargetPool(poolValue1);
+            r.KickOff(3,location);
+            remainingAmount -= 1;
         }
     }
 

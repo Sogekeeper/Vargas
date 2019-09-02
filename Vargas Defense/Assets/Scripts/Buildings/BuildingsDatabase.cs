@@ -17,6 +17,8 @@ public class BuildingsDatabase : MonoBehaviour
     [Header("Interface")]
     public RMF_RadialMenu radialMenu;
     public FPSBuilderManager builder;
+   
+
 
     public static BuildingsDatabase Instance;     
 
@@ -48,7 +50,7 @@ public class BuildingsDatabase : MonoBehaviour
         for (int i = 0; i < buildables.Length; i++)
         {            
             int j = i; //frescura pra C#
-            radialMenu.elements[i].cost.SetText(buildables[i].buildPrefab.cost.ToString());
+            radialMenu.elements[i].extraText.SetText(buildables[i].buildPrefab.cost.ToString());
             radialMenu.elements[i].label = buildables[i].buildPrefab.description;
             //radialMenu.elements[i].setParentMenuLable(buildables[i].buildPrefab.description,buildables[i].buildPrefab.cost.ToString());
             //radialMenu.elements[i].button.onClick.RemoveAllListeners();

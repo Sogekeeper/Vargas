@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Buildable : MonoBehaviour
 {
@@ -27,8 +28,12 @@ public class Buildable : MonoBehaviour
 
     [Header("Optional Visuals")]
     public ParticleSystem damageParticles;
+    public GameObject buildingProgressInterface;
+    public Image buildingProgressBar;
+    public GameObject buildingLifeInterface;
+    public Image buildingLifeBar;
 
-    public int currentLife ;
+    public int currentLife {get; protected set;}
     public int currentUpgradeProgress {get; protected set;}
     public int currentUpgradeIndex {get; protected set;}
     
@@ -39,6 +44,7 @@ public class Buildable : MonoBehaviour
 
     public void StartProjecting(){
         isBuilding = false;
+        if(buildingProgressInterface) buildingProgressInterface.SetActive(false);
         initialBuild.SetActive(false);
         placementProjection.SetActive(true);
         if(upgrades != null && upgrades.Length >= 1){
@@ -46,6 +52,8 @@ public class Buildable : MonoBehaviour
                 upgrades[i].targetBuild.SetActive(false);
             }
         }
+        if(buildingProgressInterface)buildingProgressInterface.SetActive(false);
+        if(buildingLifeInterface)buildingLifeInterface.SetActive(false);
         currentUpgradeIndex = 0;
         currentUpgradeProgress = 0;
 
@@ -53,11 +61,15 @@ public class Buildable : MonoBehaviour
 
     public void StartBuilding(){
         isBuilding = true;
+        if(buildingProgressInterface) buildingProgressInterface.SetActive(true);
         initialBuild.SetActive(true);
         placementProjection.SetActive(false);
         IBuildBehaviour bb = initialBuild.GetComponent<IBuildBehaviour>();
         if(bb != null)bb.StartBuilding();
         progress = 0;
+        threats = 0;
+        if(buildingProgressInterface)buildingProgressInterface.SetActive(true);
+        if(buildingLifeInterface)buildingLifeInterface.SetActive(false);
     }
 
     public void BoostBuilding(){
@@ -75,15 +87,20 @@ public class Buildable : MonoBehaviour
     private void ProgressInitialBuild(){
         progress += multiplierTimer > 0 ? Time.deltaTime * multiplierDuration : Time.deltaTime * 1;
         currentLife = (int)(progress/timeToBuild * totalLife);
+        if(buildingProgressBar) buildingProgressBar.fillAmount = progress/timeToBuild;
         if(progress >= timeToBuild){
             IBuildBehaviour bb = initialBuild.GetComponent<IBuildBehaviour>();
             if(bb != null)bb.FinishedBuilding();
+            if(buildingProgressInterface) buildingProgressInterface.SetActive(false);
+            if(buildingLifeInterface)buildingLifeInterface.SetActive(true);
+            if(buildingLifeBar) buildingLifeBar.fillAmount = (float)currentLife/(float)totalLife;
             isBuilding = false;
         }
     }
 
     public void TakeDamage(int dmg){
         currentLife -= dmg;
+        if(buildingLifeBar) buildingLifeBar.fillAmount = (float)currentLife/(float)totalLife;
         if(damageParticles){
             damageParticles.Stop();
             damageParticles.Play();
@@ -95,6 +112,7 @@ public class Buildable : MonoBehaviour
 
     public void Die(){
         FPSBuilderManager.Instance.builds.Remove(this);
+        
         //Destroy(gameObject);
         gameObject.SetActive(false);
     }

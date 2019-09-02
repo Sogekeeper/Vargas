@@ -58,7 +58,8 @@ public class ShootingTurret : MonoBehaviour, IBuildBehaviour
 
     private void TrackTarget(){
         if(!target || !target.gameObject.activeInHierarchy) return;
-        Quaternion toRot = Quaternion.LookRotation(target.gameObject.transform.position - movingPartX.position, Vector3.up);
+        Vector3 targetDir = (target.gameObject.transform.position - movingPartX.position) + new Vector3(0, target.offsetY, 0);
+        Quaternion toRot = Quaternion.LookRotation(targetDir, Vector3.up);
         //toRot = Quaternion.Euler(0,toRot.eulerAngles.y,0);
         movingPartX.rotation = Quaternion.Slerp(movingPartX.rotation, Quaternion.Euler(toRot.eulerAngles.x,movingPartY.rotation.eulerAngles.y,movingPartY.rotation.eulerAngles.z), turningSpeed );
         movingPartY.rotation = Quaternion.Slerp(movingPartY.rotation, Quaternion.Euler(movingPartY.rotation.eulerAngles.x,toRot.eulerAngles.y,movingPartY.rotation.eulerAngles.z), turningSpeed );
@@ -70,9 +71,10 @@ public class ShootingTurret : MonoBehaviour, IBuildBehaviour
             attackTimer -= Time.deltaTime;
             return;
         }
-        Vector3 dirTarget = target.gameObject.transform.position - movingPartX.position;
+        Vector3 dirTarget = (target.gameObject.transform.position + new Vector3(0,target.offsetY,0)) - movingPartX.position;
         float angleToTarget = Vector3.Angle(movingPartY.forward, dirTarget);
         if(angleToTarget <= maxAngleToAttack){
+            Debug.Log("fire");
             bulletPool[currentBulletIndex].SetActive(true);
             bulletPool[currentBulletIndex].transform.position = bulletSpawner.position;
             bulletPool[currentBulletIndex].transform.rotation = bulletSpawner.rotation;
@@ -99,7 +101,7 @@ public class ShootingTurret : MonoBehaviour, IBuildBehaviour
                 float curDist = Vector3.Distance(trans.position,EnemySpawner.enemies[i].transform.position);
                 Vector3 dir = EnemySpawner.enemies[i].transform.position - trans.position;
                 float curAngle = Vector3.Angle(movingPartY.forward,dir);
-                if(curDist <= range){
+                if(curDist <= range && EnemySpawner.enemies[i].activeInHierarchy){
                     if(curAngle < shortestAngle){
                         curAngle = shortestAngle;
                         if(curDist < shortestDist || curDist < dangerZone){

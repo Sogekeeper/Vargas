@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject testSubject;
+    public GameObject[] testSubjects;
     public static List<GameObject> enemies;
 
     private void Start() {
         enemies = new List<GameObject>();
-        enemies.Add(testSubject);
+        //enemies.Add(testSubject);
+        for (int i = 0; i < testSubjects.Length; i++)
+        {
+            enemies.Add(testSubjects[i]);
+        }
     }
 
 }
