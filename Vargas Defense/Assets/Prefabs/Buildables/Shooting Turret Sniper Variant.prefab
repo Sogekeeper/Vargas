@@ -27,6 +27,14 @@ PrefabInstance:
       propertyPath: timeToBuild
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5267881152519652751, guid: 13ac9cf8d245617429817f7b7a5e69fd,
+        type: 3}
+      propertyPath: description
+      value: 'Sentinela Sniper
+
+
+        Atira uma bala comum de muito longe, mas tem menos vida.'
+      objectReference: {fileID: 0}
     - target: {fileID: 5267881150820734193, guid: 13ac9cf8d245617429817f7b7a5e69fd,
         type: 3}
       propertyPath: m_IsActive
@@ -102,16 +110,6 @@ PrefabInstance:
       propertyPath: fireRate
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 5267881151700211866, guid: 13ac9cf8d245617429817f7b7a5e69fd,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f201fca0c6de74849b709d9224f63421, type: 2}
-    - target: {fileID: 5267881152488689604, guid: 13ac9cf8d245617429817f7b7a5e69fd,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f201fca0c6de74849b709d9224f63421, type: 2}
     - target: {fileID: 901202493000411288, guid: 13ac9cf8d245617429817f7b7a5e69fd,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -132,6 +130,16 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5267881151700211866, guid: 13ac9cf8d245617429817f7b7a5e69fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f201fca0c6de74849b709d9224f63421, type: 2}
+    - target: {fileID: 5267881152488689604, guid: 13ac9cf8d245617429817f7b7a5e69fd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f201fca0c6de74849b709d9224f63421, type: 2}
     - target: {fileID: 3416480472426310218, guid: 13ac9cf8d245617429817f7b7a5e69fd,
         type: 3}
       propertyPath: m_textInfo.characterCount

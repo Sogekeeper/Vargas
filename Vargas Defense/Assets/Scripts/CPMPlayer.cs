@@ -360,10 +360,10 @@ public class CPMPlayer : MonoBehaviour
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(0, 0, 400, 100), "FPS: " + fps, style);
+        //GUI.Label(new Rect(0, 0, 400, 100), "FPS: " + fps, style);
         var ups = _controller.velocity;
         ups.y = 0;
-        GUI.Label(new Rect(0, 15, 400, 100), "Speed: " + Mathf.Round(ups.magnitude * 100) / 100 + "ups", style);
-        GUI.Label(new Rect(0, 30, 400, 100), "Top Speed: " + Mathf.Round(playerTopVelocity * 100) / 100 + "ups", style);
+        //GUI.Label(new Rect(0, 15, 400, 100), "Speed: " + Mathf.Round(ups.magnitude * 100) / 100 + "ups", style);
+        //GUI.Label(new Rect(0, 30, 400, 100), "Top Speed: " + Mathf.Round(playerTopVelocity * 100) / 100 + "ups", style);
     }
 }

@@ -66,7 +66,7 @@ public class ShootingTurret : MonoBehaviour, IBuildBehaviour
     }
 
     private void TryToAttack(){
-        if(!target || !target.gameObject.activeInHierarchy) return;
+        if(!target || !target.gameObject.activeInHierarchy || target.currentLife <= 0) return;
         if(attackTimer > 0){
             attackTimer -= Time.deltaTime;
             return;
@@ -101,8 +101,8 @@ public class ShootingTurret : MonoBehaviour, IBuildBehaviour
                 float curDist = Vector3.Distance(trans.position,EnemySpawner.enemies[i].transform.position);
                 Vector3 dir = EnemySpawner.enemies[i].transform.position - trans.position;
                 float curAngle = Vector3.Angle(movingPartY.forward,dir);
-                if(curDist <= range && EnemySpawner.enemies[i].activeInHierarchy){
-                    if(curAngle < shortestAngle){
+                if(curDist <= range && EnemySpawner.enemies[i].activeInHierarchy){                                        
+                    if(curAngle < shortestAngle && EnemySpawner.enemies[i].GetComponent<Enemy>().currentLife > 0){
                         curAngle = shortestAngle;
                         if(curDist < shortestDist || curDist < dangerZone){
                             curDist = shortestDist;
