@@ -39,19 +39,20 @@ public class DropDatabase : MonoBehaviour
 
     public void DropAmount(int targetAmount, Vector3 location){
         int remainingAmount = targetAmount;
+        float forceToDrop = 2f;
         while(remainingAmount >= 10){
             Resource r = GetFromTargetPool(poolValue10);
-            r.KickOff(3,location);
+            r.KickOff(forceToDrop,location);
             remainingAmount -= 10;
         }
         while(remainingAmount >= 5){
             Resource r = GetFromTargetPool(poolValue5);
-            r.KickOff(3,location);
+            r.KickOff(forceToDrop,location);
             remainingAmount -= 5;
         }
         while(remainingAmount >= 1){
             Resource r = GetFromTargetPool(poolValue1);
-            r.KickOff(3,location);
+            r.KickOff(forceToDrop,location);
             remainingAmount -= 1;
         }
     }

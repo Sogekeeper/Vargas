@@ -8112,10 +8112,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1560761926897924956}
   - component: {fileID: 1560761926888344428}
-  - component: {fileID: 1560761927871168542}
   - component: {fileID: 1560761927871168995}
   - component: {fileID: 1560761927871168992}
   - component: {fileID: 1560761927871168993}
+  - component: {fileID: 4664121009100130317}
   m_Layer: 11
   m_Name: PH_EnemyBasic
   m_TagString: Untagged
@@ -8131,8 +8131,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560761926897802240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.44, y: -7.703469e-18, z: -7.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 21.44, y: 0, z: -7.4785}
+  m_LocalScale: {x: 1.5489265, y: 1.5489265, z: 1.5489265}
   m_Children:
   - {fileID: 2354145061703199447}
   - {fileID: 1560761926897992312}
@@ -8207,19 +8207,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1560761927871168542
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560761926897802240}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7847944, y: 1.8612189, z: 0.38953742}
-  m_Center: {x: -0.10760284, y: 1.3043907, z: 0.013578786}
 --- !u!195 &1560761927871168995
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8230,7 +8217,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -8271,10 +8258,10 @@ MonoBehaviour:
   buildsLayer:
     serializedVersion: 2
     m_Bits: 1024
-  lifeBar: {fileID: 2555956807360592541}
   attackingPlayer: 0
   goal: {fileID: 0}
   target: {fileID: 0}
+  lifeBar: {fileID: 2555956807360592541}
 --- !u!114 &1560761927871168993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8291,6 +8278,20 @@ MonoBehaviour:
   enemyStats: {fileID: 1560761927871168992}
   anim: {fileID: 1560761926888344428}
   remainState: {fileID: 11400000, guid: 00718ddeaebccef45a27c070b42f8ca9, type: 2}
+--- !u!136 &4664121009100130317
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560761926897802240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.41
+  m_Height: 1.71
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!1 &1560761926897802334
 GameObject:
   m_ObjectHideFlags: 0

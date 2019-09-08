@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Buildable : MonoBehaviour
 {
@@ -30,8 +31,10 @@ public class Buildable : MonoBehaviour
     public ParticleSystem damageParticles;
     public GameObject buildingProgressInterface;
     public Image buildingProgressBar;
+    public TextMeshProUGUI buildingProgressText;
     public GameObject buildingLifeInterface;
     public Image buildingLifeBar;
+    public TextMeshProUGUI buildingLifeText;
 
     public int currentLife {get; protected set;}
     public int currentUpgradeProgress {get; protected set;}
@@ -131,6 +134,22 @@ public class Buildable : MonoBehaviour
             currentUpgradeProgress += amountNeeded;
         }
         print("Vida: "+currentLife.ToString()+"  Upgrade Progress: "+currentUpgradeProgress.ToString());
-    }
-    
+    }   
+    public int GetNeededAmount(ref bool isUpgrade){
+        int amountNeeded = 0;
+        FPSBuilderManager builder = FPSBuilderManager.Instance;
+        if(currentLife < totalLife){
+            amountNeeded = totalLife - currentLife;
+            if(amountNeeded > builder.maxRepairAmount) amountNeeded = builder.maxRepairAmount;
+            if(builder.currentResources < amountNeeded) amountNeeded = builder.currentResources;
+            isUpgrade = false;
+            
+        }else if(upgrades != null && upgrades.Length > 0){
+            amountNeeded = upgrades[currentUpgradeIndex].cost - currentUpgradeProgress;
+            if(amountNeeded > builder.maxRepairAmount) amountNeeded = builder.maxRepairAmount;
+            if(builder.currentResources < amountNeeded) amountNeeded = builder.currentResources;
+            isUpgrade = true;
+        }
+        return amountNeeded;
+    } 
 }

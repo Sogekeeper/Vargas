@@ -5,29 +5,39 @@ using UnityEngine.UI;
 
 public class FPSBuilderManager : MonoBehaviour {
 
-	public GameObject placeablePrefab; //set from elsewhere
-	public Transform buildSpawn;
-	public float maxHeight = 0.5f;
-
 	[SerializeField]
 	private KeyCode newObjectHotkey = KeyCode.T;
 
-
-	public Transform player;
-
+	[Header("Repair Settings")]
+    public int maxRepairAmount = 5;
+	public int currentResources = 0;
+	public float repairRange = 2f;
 	public bool isBuilding { get; private set;}
-	public float currentResources = 0;
+	
+	public int buildsLayerInt { get; private set;} //pq eu não sei a performance de NameToLayer
+
+	//Placing Settings
+	[Header("Placement Settings")]
+	public Transform buildSpawn;
+	public float maxHeight = 0.5f;
 
 	private GameObject currentPlaceablePrefab;
 	private Camera playerView;
 	private float degreeAddition = 0;
 
-	public static FPSBuilderManager Instance;
-	public List<Buildable> builds;
+	[HideInInspector]public List<Buildable> builds;
+
+	[Header("Player")]
+	public Transform player;
+	public PlayerStats playerStats;
+	public Animator anim;
 
 	[Header("Interface")]
 	public GameObject placementMenu;	
 	public CPMPlayer playerMov;
+
+	//SINGLETON
+	public static FPSBuilderManager Instance;
 
     void Awake () {
 		if(Instance == null){
@@ -43,22 +53,33 @@ public class FPSBuilderManager : MonoBehaviour {
 	
 	private void Start() {
 		placementMenu.SetActive(false);
+		buildsLayerInt = LayerMask.NameToLayer("Building");
 	}
 	
 	
 	void Update () {
 		HandleObjectKey();
-		if(currentPlaceablePrefab != null){
+		if(currentPlaceablePrefab != null){ //Está com o holograma pra colocar build
 			MoveCurrentPlaceable();
 			//RotateCurrentPlaceable();
 			ReleaseIfClicked();
 		}
-		else
+		else //pode atirar e reparar coisas
 		{
-		//check clicks for repair/upgrade	
+			HandleTools();	
 		}
 
 	}
+
+	private void HandleTools(){
+		if(Input.GetButtonDown("Fire1")){
+			playerStats.Fire();
+		}
+		if(Input.GetButtonDown("Fire2")){
+			InsertResources();
+		}
+	}
+	
 
     private void ReleaseIfClicked()
     {
@@ -137,8 +158,10 @@ public class FPSBuilderManager : MonoBehaviour {
 		Ray ray = playerView.ScreenPointToRay(Input.mousePosition);
 		
 		RaycastHit hitInfo;
-		if(Physics.Raycast(ray, out hitInfo)){
-			
+		if(Physics.Raycast(ray, out hitInfo,repairRange,buildsLayerInt)){
+			Buildable b = hitInfo.collider.GetComponent<Buildable>();
+			if(b.isBuilding) b.BoostBuilding();
+			else b.InsertResource(ref currentResources, maxRepairAmount);			
 		}
 	}
 }

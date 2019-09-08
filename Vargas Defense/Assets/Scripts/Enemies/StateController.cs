@@ -20,14 +20,14 @@ public class StateController : MonoBehaviour
     }
 
     private void Start() {
-        agent.updatePosition = false;
+        //agent.updatePosition = false;
     }
 
     private void Update() {
         currentState.UpdateState(this);
 
-        agent.nextPosition = transform.position;
-        transform.rotation = agent.transform.rotation;
+        //agent.nextPosition = transform.position;
+        //transform.rotation = agent.transform.rotation;
 
         anim.SetFloat("speed", agent.desiredVelocity.magnitude);
     }
