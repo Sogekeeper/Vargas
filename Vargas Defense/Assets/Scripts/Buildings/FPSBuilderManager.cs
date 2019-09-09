@@ -14,7 +14,7 @@ public class FPSBuilderManager : MonoBehaviour {
 	public float repairRange = 2f;
 	public bool isBuilding { get; private set;}
 	
-	public int buildsLayerInt { get; private set;} //pq eu não sei a performance de NameToLayer
+	public LayerMask buildsLayer; //pq eu não sei a performance de NameToLayer
 
 	//Placing Settings
 	[Header("Placement Settings")]
@@ -52,8 +52,7 @@ public class FPSBuilderManager : MonoBehaviour {
 	}
 	
 	private void Start() {
-		placementMenu.SetActive(false);
-		buildsLayerInt = LayerMask.NameToLayer("Building");
+		placementMenu.SetActive(false);		
 	}
 	
 	
@@ -64,7 +63,7 @@ public class FPSBuilderManager : MonoBehaviour {
 			//RotateCurrentPlaceable();
 			ReleaseIfClicked();
 		}
-		else //pode atirar e reparar coisas
+		else if(!placementMenu.activeInHierarchy) //pode atirar e reparar coisas
 		{
 			HandleTools();	
 		}
@@ -158,7 +157,7 @@ public class FPSBuilderManager : MonoBehaviour {
 		Ray ray = playerView.ScreenPointToRay(Input.mousePosition);
 		
 		RaycastHit hitInfo;
-		if(Physics.Raycast(ray, out hitInfo,repairRange,buildsLayerInt)){
+		if(Physics.Raycast(ray, out hitInfo,repairRange,buildsLayer.value)){
 			Buildable b = hitInfo.collider.GetComponent<Buildable>();
 			if(b.isBuilding) b.BoostBuilding();
 			else b.InsertResource(ref currentResources, maxRepairAmount);			

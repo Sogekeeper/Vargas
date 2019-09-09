@@ -133,6 +133,7 @@ public class Buildable : MonoBehaviour
             if(amount < amountNeeded) amountNeeded = amount;
             currentUpgradeProgress += amountNeeded;
         }
+        if(buildingLifeBar) buildingLifeBar.fillAmount = (float)currentLife/(float)totalLife;
         print("Vida: "+currentLife.ToString()+"  Upgrade Progress: "+currentUpgradeProgress.ToString());
     }   
     public int GetNeededAmount(ref bool isUpgrade){

@@ -12,5 +12,6 @@ public class DieAction : Action
 
     private void Die(StateController controller){
         controller.anim.SetBool("dead", true);
+        controller.agent.updatePosition = false;
     }
 }

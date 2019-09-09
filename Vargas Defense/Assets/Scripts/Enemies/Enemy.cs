@@ -20,14 +20,14 @@ public class Enemy : MonoBehaviour
     public float attackTowerRange = 2f;
     public float attackPlayerRange = 2f;
     public float attackGoalRange = 3f;
+    public bool attackingPlayer;
     [Space()]
     public int threatValue = 1;
     public int ignoreValue = 2;
     public LayerMask buildsLayer;
+    public LayerMask playerLayer;
+
     [Space()]
-
-    [HideInInspector]public bool attackingPlayer = false;
-
     public Transform goal;
     public Buildable target;
     [Header("Optional Interface")]
@@ -41,6 +41,10 @@ public class Enemy : MonoBehaviour
 
     public void Initialize(){//pra depois caso eu faça uma pool de inimigos eu ainda consiga chamar isso sem OnEnable
         currentLife = totalLife;
+        StateController s = GetComponent<StateController>();
+        s.agent.updatePosition = true;
+        s.anim.Play("Movement Tree",0,0);
+        attackingPlayer= false;
         alreadyDropped = false;
         if(lifeBar) lifeBar.fillAmount = (float)currentLife/(float)totalLife;
     }
@@ -71,7 +75,7 @@ public class Enemy : MonoBehaviour
         RaycastHit hit;
         
         if(!attackingPlayer){  
-                                  
+            
             if(Physics.SphereCast(transform.position + new Vector3(0,1,0),attackMeleeArea,transform.forward, out hit,attackMeleeRange,buildsLayer.value)){
                 //Debug.Log(hit.collider.name);
                 if(hit.collider != null){
@@ -80,8 +84,13 @@ public class Enemy : MonoBehaviour
                 }
             }
         }else{
-            if(Physics.SphereCast(transform.position,attackMeleeArea,transform.forward, out hit,attackMeleeRange,LayerMask.NameToLayer("Player"))){
-
+            Vector3 dirToPlayer = FPSBuilderManager.Instance.transform.position -  transform.position;
+            dirToPlayer.Normalize();
+            if(Physics.SphereCast(transform.position + new Vector3(0,1,0),attackMeleeArea,dirToPlayer, out hit,attackMeleeRange,playerLayer.value)){
+                if(hit.collider != null){
+                    PlayerStats ps = hit.collider.gameObject.GetComponent<PlayerStats>();
+                    if(ps != null) ps.TakeDamage(damage);
+                }
             }
         }
     }
